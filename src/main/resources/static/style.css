@@ -1,0 +1,16 @@
+h1 {
+	color: firebrick;
+}
+
+h1 img {
+	height: 1em;
+}
+label{
+	display:inline-block;
+	width:200px;
+}
+.inputbox{
+	display:inline-block;
+	width: 200px;
+	
+}
