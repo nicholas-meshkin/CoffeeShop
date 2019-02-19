@@ -44,9 +44,9 @@
 			</select>
 		</p>
 		<p>
-			<label for="creditcardnumber">Credit Card Number:</label> <input class="inputbox" 
-				  id="creditcardnumber"
-				name="creditcardnumber" pattern="[0-9]{16}"/>
+			<label for="creditcard">Credit Card Number:</label> <input class="inputbox" 
+				  id="creditcard"
+				name="creditcard" pattern="[0-9]{16}"/>
 		</p>
 		<p> <label for="cardexp">Card Expiration:</label><input class="inputbox" type="date" id="cardexp" name="cardexp"/></p>
 		<!-- </fieldset> -->

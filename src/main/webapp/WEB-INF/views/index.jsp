@@ -6,9 +6,11 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
+<link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 <h1>Welcome to Nick's Coffee Website!</h1>
 <p><a href="/user-registration">User Registration</a></p>
+<p><a href="/item-list">List of Items</a></p>
 </body>
 </html>

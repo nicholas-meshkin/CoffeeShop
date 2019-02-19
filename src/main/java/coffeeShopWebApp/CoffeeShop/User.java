@@ -1,37 +1,48 @@
 package coffeeShopWebApp.CoffeeShop;
 
 public class User {
+	private Long id;
+	
 	private String firstname;
 	private String lastname;
 	private String phone;
 	private String password;
 	private String email;
-	private int creditcard;
+	private String creditcard;
 	private String cardtype;
 	private String cardexp;
 	
 	public User() {}
 
 	
-	public User(String firstname, String lastname, String phone, String password, String email, String cardtype, int creditcardnumber, String cardexp) {
+	public User(Long id, String firstname, String lastname, String phone, String password, String email, String cardtype, String creditcardnumber, String cardexp) {
 		super();
+		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.phone = phone;
 		this.password = password;
 		this.email = email;
 		this.cardtype = cardtype;
-		this.creditcard = creditcardnumber;
+		this.creditcard = creditcard;
 		this.cardexp=cardexp;
+	}
+	public Long getId() {
+		return id;
 	}
 
 
-	public int getCreditcard() {
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getCreditcard() {
 		return creditcard;
 	}
 
 
-	public void setCreditcard(int creditcard) {
+	public void setCreditcard(String creditcard) {
 		this.creditcard = creditcard;
 	}
 
