@@ -6,26 +6,29 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>List of Items</title>
+<link rel="stylesheet" href="/style.css" />
 </head>
 <body>
 	<h1>List of Items</h1>
 	<table>
 		<thead>
 			<tr>
-				<th>Item</th>
-				<th>Description</th>
-				<th>Quantity Available</th>
-				<th>Price</th>
+				<th class="itemlist">Item</th>
+				<th class="itemlist">Description</th>
+				<th class="itemlist">Quantity Available</th>
+				<th class="itemlist">Price</th>
+				<th class="itemlist">Image</th>
 			</tr>
 		</thead>
 		</tbody>
 		<c:forEach var="curritem" items="${items}">
 			<tr>
-			<!-- 	<td><a href="/rooms/${classroom.id}">${classroom.name}</a></td> -->
-				<td>${curritem.name}</td>
-				<td>${curritem.description}</td>
-				<td>${curritem.quantity}</td>
-				<td>${curritem.price}</td>
+			<!-- 	<td><a href="/rooms/${classroom.id}">${classroom.name}</a></td> this is how I could make a link-->
+				<td class="itemlist" >${curritem.name}</td>
+				<td class="itemlist">${curritem.description}</td>
+				<td class="itemlist">${curritem.quantity}</td>
+				<td class="itemlist">$ ${curritem.price}</td>
+				<td class="itemlist"><img class="img" src="/images/${curritem.itemimg }"></td>
 			</tr>
 		</c:forEach>
 		</tbody>

@@ -6,6 +6,7 @@ public class Item {
 	private String description;
 	private int quantity;
 	private double price;
+	private String itemimg;
 	public Item () {
 		
 	}
@@ -19,6 +20,12 @@ public class Item {
 	}
 	public long getId() {
 		return id;
+	}
+	public String getItemimg() {
+		return itemimg;
+	}
+	public void setItemimg(String itemimg) {
+		this.itemimg = itemimg;
 	}
 	public void setId(long id) {
 		this.id = id;
