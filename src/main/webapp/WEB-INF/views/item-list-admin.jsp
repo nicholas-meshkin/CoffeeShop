@@ -29,11 +29,16 @@
 				<td class="itemlist">${curritem.quantity}</td>
 				<td class="itemlist">$ ${curritem.price}</td>
 				<td class="itemlist"><img class="img" src="/images/${curritem.itemimg }"></td>
+				<td>
+						<a href="/item/update?id=${ curritem.id }" class="btn btn-light btn-sm">Edit</a>
+						<a href="/item/delete/conf?id=${ curritem.id }" class="btn btn-light btn-sm">Delete</a>
+					</td>
 				
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
+	<a href="/addItem">Add an Item</a>
 	<a href="/">Home</a>
 </body>
 </html>

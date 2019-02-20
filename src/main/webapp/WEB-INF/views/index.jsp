@@ -12,5 +12,6 @@
 <h1>Welcome to Nick's Coffee Website!</h1>
 <p><a href="/user-registration">User Registration</a></p>
 <p><a href="/item-list">List of Items</a></p>
+<p><a href="/admin">Admin</a></p>
 </body>
 </html>

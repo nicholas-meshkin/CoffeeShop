@@ -6,17 +6,23 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import coffeeShopWebApp.CoffeeShop.User;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
+@Transactional
 public class UsersDao {
 	
-	@Autowired
-	private JdbcTemplate jdbc;
-	
+	@PersistenceContext
+	private EntityManager em;
 	
 	public void create(User user) {
-		String sql = "INSERT INTO users (firstname, lastname, phone, password, email, creditcard, cardtype, cardexp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		jdbc.update(sql,user.getFirstname(),user.getLastname(),user.getPhone(), user.getPassword(),user.getEmail(),user.getCreditcard(),user.getCardtype(),user.getCardexp());
+		em.persist(user);
 	}
 
 }

@@ -1,6 +1,6 @@
 package coffeeShopWebApp.CoffeeShop;
 import java.util.List;
-
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,10 +26,36 @@ public class CoffeeController {
 		return new ModelAndView("index");
 	}
 	
+	@RequestMapping("/admin")
+	public ModelAndView adminPage() {
+		return new ModelAndView("admin-page");
+	}
+	
+	@RequestMapping("/admin/items")
+	public ModelAndView itemAdmin() {
+		List<Item> myItemList = itemsDao.findAll();
+		return new ModelAndView("item-list-admin","items",myItemList);
+	}
+	
 	@RequestMapping("/item-list")
 	public ModelAndView listItems() {
 		List<Item> myItemList = itemsDao.findAll();
 		return new ModelAndView("item-list","items",myItemList);
+	}
+	
+	@RequestMapping("/item/update")
+	public ModelAndView showUpdateForm(@RequestParam("id") Long id) {
+		ModelAndView mav = new ModelAndView("item-form");
+		mav.addObject("item", itemsDao.findById(id));
+		mav.addObject("title", "Edit Items");
+		return mav;
+	}
+	
+	@PostMapping("/item/update")
+	public ModelAndView submitUpdate(Item item) {
+		itemsDao.update(item);
+		return new ModelAndView("redirect:/admin/items");
+		
 	}
 	
 	@RequestMapping("/user-registration")
@@ -51,6 +77,34 @@ public class CoffeeController {
 		mav.addObject("firstname",firstname);
 		return mav;
 		
+	}
+	@RequestMapping("/addItem")
+		public ModelAndView addItem() {
+		return new ModelAndView("item-form","title","Add an Item");
+	}
+	@PostMapping("/addItem")
+	public ModelAndView submitNewItem(Item item) {
+		List list = itemsDao.findNames();
+				if (!list.contains(item.getName())){
+		itemsDao.create(item);
+		return new ModelAndView("redirect:/admin/items");
+		}
+		else {
+			return new ModelAndView("error-page");
+		}
+		
+		
+	}
+	@RequestMapping("/item/delete/conf")
+	public ModelAndView deleteConfirmation(@RequestParam("id") Long id) {
+		return new ModelAndView("delete-confirmation","id", id);
+	}
+	
+	
+	@RequestMapping("/item/delete")
+	public ModelAndView deleteItem(@RequestParam("id") Long id) {
+		itemsDao.delete(id);
+		return new ModelAndView("redirect:/admin/items");
 	}
 	
 }
