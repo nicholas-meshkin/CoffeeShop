@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 				<td class="itemlist" >${curritem.name}</td>
 				<td class="itemlist">${curritem.description}</td>
 				<td class="itemlist">${curritem.quantity}</td>
-				<td class="itemlist">$ ${curritem.price}</td>
+				<td class="itemlist"><fmt:formatNumber type="currency" value = "${curritem.price}" /></td>
 				<td class="itemlist"><img class="img" src="/images/${curritem.itemimg }"></td>
 				<td>
 						<a href="/item/update?id=${ curritem.id }" class="btn btn-light btn-sm">Edit</a>
