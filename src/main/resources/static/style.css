@@ -15,14 +15,19 @@ label{
 .inputbox{
 	display:inline-block;
 	width: 200px;
+	height: 20px;
+	box-sizing: border-box;
 	
 }
 .img{
 	height: 50px;
 }
 .itemlist{
-	width:250px;
+	width:150px;
 }
 th{
 	text-align: left;
+}
+#footer{
+	font-style: italic;
 }

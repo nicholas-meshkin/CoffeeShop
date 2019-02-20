@@ -36,7 +36,7 @@
 		</p>
 			<!--<fieldset>-->
 		<p>
-			<label for="cardtype">Card Type:</label> <select class="inputbox" id="cardtype"
+			<label for="cardtype">*Card Type:</label> <select class="inputbox" id="cardtype"
 				name="cardtype">
 			<option value="Visa">Visa</option>
 			<option value="Discover">Discover</option>
@@ -44,18 +44,21 @@
 			</select>
 		</p>
 		<p>
-			<label for="creditcard">Credit Card Number:</label> <input class="inputbox" 
+			<label for="creditcard">*Credit Card Number:</label> <input class="inputbox" 
 				  id="creditcard"
 				name="creditcard" pattern="[0-9]{16}"/>
 		</p>
-		<p> <label for="cardexp">Card Expiration:</label><input class="inputbox" type="date" id="cardexp" name="cardexp"/></p>
+		<p> <label for="cardexp">*Card Expiration:</label> <input class="inputbox" type="date" id="cardexp" name="cardexp"/></p>
 		<!-- </fieldset> -->
-		<p><label for="sendupdates">Receive offers and updates?</label><input id="checkbox" type="checkbox" name="sendupdates" value="yes"/>Yes please!</p>
+		<p><label for="sendupdates">*Receive offers and updates?</label><input id="checkbox" type="checkbox" name="sendupdates" value="yes"/>Yes please!</p>
 
 		<p>
 			<button>Submit</button>
 		</p>
 	</form>
 	</div>
+	<p><br></p>
+	<p><br></p>
+	<p id=footer>*optional fields</p>
 </body>
 </html>
