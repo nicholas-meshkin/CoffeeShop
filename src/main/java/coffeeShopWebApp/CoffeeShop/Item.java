@@ -4,7 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Entity
 @Table(name="items")
@@ -17,6 +19,10 @@ public class Item {
 	private Integer quantity;
 	private Double price;
 	private String itemimg;
+	
+//	@OneToMany(mappedBy ="item")  optional non-controlling side - we don't need to see what carts a cart item is in
+//	private Set<CartItem> cartItems;
+	
 	public Item () {
 		
 	}

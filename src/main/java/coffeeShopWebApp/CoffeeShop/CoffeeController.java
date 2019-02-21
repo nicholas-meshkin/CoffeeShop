@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import coffeeShopWebApp.CoffeeShop.dao.ItemsDao;
 import coffeeShopWebApp.CoffeeShop.dao.UsersDao;
+import coffeeShopWebApp.CoffeeShop.dao.CartItemsDao;
 
 @Controller
 public class CoffeeController {
@@ -19,6 +20,11 @@ public class CoffeeController {
 	
 	@Autowired 
 	private ItemsDao itemsDao;
+	
+	@Autowired
+	private CartItemsDao cartItemsDao;
+	
+	
 	
 	
 	@RequestMapping("/")
@@ -31,6 +37,14 @@ public class CoffeeController {
 		return new ModelAndView("admin-page");
 	}
 	
+	@RequestMapping("/cart")
+	public ModelAndView cartPage() {
+		List<CartItem> myCartItemList = cartItemsDao.findAll();
+		return new ModelAndView("show-cart","cartItems",myCartItemList);
+	}
+	
+	
+	
 	@RequestMapping("/admin/items")
 	public ModelAndView itemAdmin() {
 		List<Item> myItemList = itemsDao.findAll();
@@ -41,6 +55,51 @@ public class CoffeeController {
 	public ModelAndView listItems() {
 		List<Item> myItemList = itemsDao.findAll();
 		return new ModelAndView("item-list","items",myItemList);
+	}
+	
+	/*
+	 * CartItem old = dao.findByItem
+	 * int newQuant= old.getQuant+newCI.getQuant;
+	 * old.setQuantity(newQuant)
+	 * dao.update(old);
+	 * 
+	 * CartItem odl = dao.findByItem
+	 * newCI.setId(old.getId())
+	 * newCI.setQuantity(..
+	 * dao.update(newCI)
+	 */
+	
+	@PostMapping("/item-list")
+	public ModelAndView addToCart(CartItem cartItem, Long item_id) {
+		List<Item> list = cartItemsDao.findAllItems();
+		if(list.contains(cartItem.getItem())) { //need to get list of item ids and compare them to m
+			//update
+			CartItem olditem = cartItemsDao.findByItem(cartItem.getItem());
+			olditem.setQuantity(cartItem.getQuantity()+olditem.getQuantity());
+			cartItemsDao.update(olditem);
+		}
+//		This didn't work, threw back an error
+//		List<Item> list = cartItemsDao.findAllItems();
+//		List<Long> idList = new ArrayList<>();
+//		if(list.size()!=0) {
+//			for(int i=0;i<list.size();i++) {
+//			idList.add(list.get(i).getId());
+//		
+//		}
+//		}
+//		if(idList.contains(item_id)) { //need to get list of item ids and compare them to the long parameter
+//		
+//			//update
+//			CartItem olditem = cartItemsDao.findByItem(cartItem.getItem());
+//			olditem.setQuantity(cartItem.getQuantity()+olditem.getQuantity());
+//			cartItemsDao.update(olditem);
+//		}
+		
+		else {
+			cartItemsDao.create(cartItem, item_id);
+		}
+		
+		return new ModelAndView("redirect:/item-list");
 	}
 	
 	@RequestMapping("/item/update")

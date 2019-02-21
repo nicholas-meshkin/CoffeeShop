@@ -19,6 +19,11 @@ label{
 	box-sizing: border-box;
 	
 }
+.quantitybox{
+	width:30px;
+	box-sizing: border-box;
+	display:inline-block;
+}
 .img{
 	height: 50px;
 }
