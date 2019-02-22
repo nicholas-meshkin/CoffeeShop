@@ -10,6 +10,9 @@
 <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<header><span>
+			Welcome, ${ profile.firstname } ${ profile.lastname }
+		</span></header>
 	<h1>List of Items</h1>
 	<table>
 		<thead>

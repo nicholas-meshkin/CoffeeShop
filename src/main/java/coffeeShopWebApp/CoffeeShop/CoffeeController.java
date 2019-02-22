@@ -12,6 +12,9 @@ import coffeeShopWebApp.CoffeeShop.dao.ItemsDao;
 import coffeeShopWebApp.CoffeeShop.dao.UsersDao;
 import coffeeShopWebApp.CoffeeShop.dao.CartItemsDao;
 
+import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
 @Controller
 public class CoffeeController {
 
@@ -37,7 +40,15 @@ public class CoffeeController {
 	@RequestMapping("/cart")
 	public ModelAndView cartPage() {
 		List<CartItem> myCartItemList = cartItemsDao.findAll();
-		return new ModelAndView("show-cart","cartItems",myCartItemList);
+		Double priceTotal = 0.00;
+		for(int i=0;i<myCartItemList.size();i++) {
+			priceTotal += myCartItemList.get(i).getPriceTotal();
+		}
+		ModelAndView mav = new ModelAndView("show-cart");
+		mav.addObject("cartItems",myCartItemList);
+		 mav.addObject("priceTotal",priceTotal);
+//		return new ModelAndView("show-cart","cartItems",myCartItemList);
+		 return mav;
 	}
 	
 	@RequestMapping("/admin/items")
@@ -49,7 +60,7 @@ public class CoffeeController {
 	@RequestMapping("/item-list")
 	public ModelAndView listItems() {
 		List<Item> myItemList = itemsDao.findAll();
-		return new ModelAndView("item-list","items",myItemList);
+		 return new ModelAndView("item-list","items",myItemList);
 	}
 	
 	@PostMapping("/item-list")
@@ -99,8 +110,9 @@ public class CoffeeController {
 	}
 	
 	@RequestMapping("/submit-user-registration")
-	public ModelAndView userSubmit(User user) {
+	public ModelAndView userSubmit(User user, HttpSession session) {
 		usersDao.create(user);
+		session.setAttribute("profile", user);
 		String firstname = user.getFirstname();
 		ModelAndView mav = new ModelAndView("user-confirmation");
 		mav.addObject("firstname",firstname);

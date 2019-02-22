@@ -10,6 +10,9 @@
 <title>Cart</title>
 </head>
 <body>
+<header><span>
+			Welcome, ${ profile.firstname } ${ profile.lastname }
+		</span></header>
 <h1>Your Cart</h1>
 	<table>
 		<thead>
@@ -30,6 +33,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
+	<p>Total: <span><fmt:formatNumber type="currency" value = "${priceTotal }"></fmt:formatNumber></span></p>
 <a href="/">Home</a>
 <a href="/item-list">Back to Item List</a>
 <a href="/checkout">Check Out</a>

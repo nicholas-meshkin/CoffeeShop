@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<header><span>
+			Welcome, ${ profile.firstname } ${ profile.lastname }
+		</span></header>
 <h1>Welcome to Nick's Coffee Website!</h1>
 <p><a href="/user-registration">User Registration</a></p>
 <p><a href="/item-list">List of Items</a></p>
