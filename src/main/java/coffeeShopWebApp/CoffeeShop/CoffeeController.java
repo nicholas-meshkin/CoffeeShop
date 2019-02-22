@@ -27,16 +27,19 @@ public class CoffeeController {
 	@Autowired
 	private CartItemsDao cartItemsDao;
 	
+	//home page
 	@RequestMapping("/")
 	public ModelAndView home() {
 		return new ModelAndView("index");
 	}
 	
+	//admin menu page
 	@RequestMapping("/admin")
 	public ModelAndView adminPage() {
 		return new ModelAndView("admin-page");
 	}
 	
+	//view cart page
 	@RequestMapping("/cart")
 	public ModelAndView cartPage() {
 		List<CartItem> myCartItemList = cartItemsDao.findAll();
@@ -51,18 +54,19 @@ public class CoffeeController {
 		 return mav;
 	}
 	
+	//list of items you can update, delete, or add
 	@RequestMapping("/admin/items")
 	public ModelAndView itemAdmin() {
 		List<Item> myItemList = itemsDao.findAll();
 		return new ModelAndView("item-list-admin","items",myItemList);
 	}
 	
+	//page for users to add items to cart
 	@RequestMapping("/item-list")
 	public ModelAndView listItems() {
 		List<Item> myItemList = itemsDao.findAll();
 		 return new ModelAndView("item-list","items",myItemList);
 	}
-	
 	@PostMapping("/item-list")
 	public ModelAndView addToCart(Integer quantity, Long item_id) {
 		Item currItem = itemsDao.findById(item_id);
@@ -73,7 +77,7 @@ public class CoffeeController {
 		List<CartItem> list = cartItemsDao.findAll();
 		List<Long> idList = new ArrayList<>();
 		if(list.size()!=0) {
-			for(int i=0;i<list.size();i++) {
+			for(int i=0;i<list.size();i++) {  //this gets a list of item IDs from the cartItems in the cart to check whether to create a new entry or update the quantity of an old one
 				CartItem temp = list.get(i);
 			idList.add(temp.getItem().getId());
 		}
@@ -81,7 +85,7 @@ public class CoffeeController {
 		System.out.println(list);
 		if(idList.contains(item_id)) { 
 			CartItem oldcartitem = cartItemsDao.findByItemID(item_id);
-			if(oldcartitem.getQuantity()+quantity<= itemsDao.findById(item_id).getQuantity()) {// this should check available quantity and send error message if there aren't enough available
+			if(oldcartitem.getQuantity()+quantity<= itemsDao.findById(item_id).getQuantity()) {// this checks available quantity and send error message if there aren't enough available
 				oldcartitem.setQuantity(quantity+oldcartitem.getQuantity());
 				cartItemsDao.update(oldcartitem);
 			}else {
@@ -93,6 +97,7 @@ public class CoffeeController {
 		return new ModelAndView("redirect:/item-list");
 	}
 	
+	//admin page for updating items
 	@RequestMapping("/item/update")
 	public ModelAndView showUpdateForm(@RequestParam("id") Long id) {
 		ModelAndView mav = new ModelAndView("item-form");
@@ -106,17 +111,19 @@ public class CoffeeController {
 		return new ModelAndView("redirect:/admin/items");
 	}
 	
+	//page for entering user info
 	@RequestMapping("/user-registration")
 	public ModelAndView userReg() {
 		return new ModelAndView("user-form");
 	}
 	
+	//page letting user know they have been registered -- this link may be obsolete
 	@RequestMapping("/user-confirmation")
 	public ModelAndView userConf() {
-		
 		return new ModelAndView("user-confirmation");
 	}
 	
+	//creates the session and sends to registration confirmation page
 	@RequestMapping("/submit-user-registration")
 	public ModelAndView userSubmit(User user, HttpSession session) {
 		usersDao.create(user);
@@ -127,6 +134,8 @@ public class CoffeeController {
 		return mav;
 	}
 	
+	
+	//add item page
 	@RequestMapping("/addItem")
 		public ModelAndView addItem() {
 		return new ModelAndView("item-form","title","Add an Item");
@@ -142,24 +151,26 @@ public class CoffeeController {
 		}
 	}
 	
+	//delete confirmation page
 	@RequestMapping("/item/delete/conf")
 	public ModelAndView deleteConfirmation(@RequestParam("id") Long id) {
 		return new ModelAndView("delete-confirmation","id", id);
 	}
 	
-	
+	//thing that actually deletes the item
 	@RequestMapping("/item/delete")
 	public ModelAndView deleteItem(@RequestParam("id") Long id) {
 		itemsDao.delete(id);
 		return new ModelAndView("redirect:/admin/items");
 	}
 	
+	//delete confirmation page
 	@RequestMapping("/cartitem/delete/conf")
 	public ModelAndView cartDeleteConfirmation(@RequestParam("id") Long id) {
 		return new ModelAndView("cart-delete-confirmation","id", id);
 	}
 	
-	
+	//thing that actually deletes the item
 	@RequestMapping("/cartitem/delete")
 	public ModelAndView cartDeleteItem(@RequestParam("id") Long id) {
 		cartItemsDao.delete(id);
