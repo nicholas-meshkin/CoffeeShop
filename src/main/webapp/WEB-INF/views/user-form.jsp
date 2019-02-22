@@ -38,6 +38,7 @@
 		<p>
 			<label for="cardtype">*Card Type:</label> <select class="inputbox" id="cardtype"
 				name="cardtype">
+				<option value=""></option>
 			<option value="Visa">Visa</option>
 			<option value="Discover">Discover</option>
 			<option value="Mastercard">Mastercard</option>

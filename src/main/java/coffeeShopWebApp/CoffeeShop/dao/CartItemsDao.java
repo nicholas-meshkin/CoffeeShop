@@ -56,6 +56,10 @@ public class CartItemsDao {
 		em.remove(cartItem);
 	}
 	
+	public void deleteAll() {
+		em.createQuery("DELETE FROM CartItem").executeUpdate();
+	}
+	
 //	public List<Long> findItemIds() {
 //		List<Long> idList = em.createQuery("SELECT DISTINCT tem FROM CartItem", Long.class).getResultList();
 //				return idList;
