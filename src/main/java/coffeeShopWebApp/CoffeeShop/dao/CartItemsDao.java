@@ -27,6 +27,9 @@ public class CartItemsDao {
 	public List<CartItem> findAll() {
 		return em.createQuery("FROM CartItem", CartItem.class).getResultList();
 	}
+	public CartItem findByID(Long id) {
+		return em.find(CartItem.class, id);
+	}
 	public CartItem findByItemID(Long item_id){
 		return em.createQuery("FROM CartItem WHERE item_id = :item_id", CartItem.class)
 				.setParameter("item_id", item_id).getSingleResult();				

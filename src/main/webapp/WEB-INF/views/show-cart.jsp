@@ -33,6 +33,7 @@
 						<!-- update this for cart <a href="/item/update?id=${ curritem.id }" class="btn btn-light btn-sm">Edit</a>-->
 						<a href="/cartitem/delete/conf?id=${ currcartitem.id }" class="btn btn-light btn-sm">Delete</a>
 					</td>
+					<td><a href="/cart/quantity-update?id=${currcartitem.id }" class="btn btn-light btn-sm">Change Quantity</a></td>
 					</tr>
 		</c:forEach>
 		</tbody>

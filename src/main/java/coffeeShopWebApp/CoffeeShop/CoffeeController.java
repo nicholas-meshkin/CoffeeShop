@@ -85,7 +85,7 @@ public class CoffeeController {
 		System.out.println(list);
 		if(idList.contains(item_id)) { 
 			CartItem oldcartitem = cartItemsDao.findByItemID(item_id);
-			if(oldcartitem.getQuantity()+quantity<= itemsDao.findById(item_id).getQuantity()) {// this checks available quantity and send error message if there aren't enough available
+			if(oldcartitem.getQuantity()+quantity<= itemsDao.findById(item_id).getQuantity() && quantity>0) {// this checks available quantity and send error message if there aren't enough available
 				oldcartitem.setQuantity(quantity+oldcartitem.getQuantity());
 				cartItemsDao.update(oldcartitem);
 			}else {
@@ -109,6 +109,24 @@ public class CoffeeController {
 	public ModelAndView submitUpdate(Item item) {
 		itemsDao.update(item);
 		return new ModelAndView("redirect:/admin/items");
+	}
+	
+	@RequestMapping("/cart/quantity-update")
+	public ModelAndView showQuantityUpdateForm(@RequestParam("id") Long id) {
+		ModelAndView mav = new ModelAndView("update-cart-quantity-form");
+		mav.addObject("cartItem", cartItemsDao.findByID(id));
+		return mav;
+	}
+	@PostMapping("/cart/quantity-update")
+	public ModelAndView submitQuantityUpdate(Integer quantity, Long id) {
+		if(quantity<= cartItemsDao.findByID(id).getItem().getQuantity() && quantity>=0) { //checks to make sure the new quantity is valid
+			CartItem tempCartItem = cartItemsDao.findByID(id);
+			tempCartItem.setQuantity(quantity);
+			cartItemsDao.update(tempCartItem);
+			return new ModelAndView("redirect:/cart");
+		}else {
+			return new ModelAndView("overquantity-error-page");
+		}
 	}
 	
 	//page for entering user info
