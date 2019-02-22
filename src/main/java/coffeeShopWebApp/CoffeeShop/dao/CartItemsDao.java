@@ -27,12 +27,14 @@ public class CartItemsDao {
 	public List<CartItem> findAll() {
 		return em.createQuery("FROM CartItem", CartItem.class).getResultList();
 	}
-	
-	public List<Item> findAllItems(){
-		return em.createQuery("SELECT item FROM CartItem",Item.class).getResultList();
+	public CartItem findByItemID(Long item_id){
+		return em.createQuery("FROM CartItem WHERE item_id = :item_id", CartItem.class)
+				.setParameter("item_id", item_id).getSingleResult();				
 	}
 	
-	public void create(CartItem cartItem, Long id) {
+	public void create(Integer quantity, Long id) {
+		CartItem cartItem = new CartItem();
+		cartItem.setQuantity(quantity);
 		cartItem.setItem(itemsDao.findById(id));
 		em.persist(cartItem);
 	}

@@ -24,9 +24,6 @@ public class CoffeeController {
 	@Autowired
 	private CartItemsDao cartItemsDao;
 	
-	
-	
-	
 	@RequestMapping("/")
 	public ModelAndView home() {
 		return new ModelAndView("index");
@@ -43,8 +40,6 @@ public class CoffeeController {
 		return new ModelAndView("show-cart","cartItems",myCartItemList);
 	}
 	
-	
-	
 	@RequestMapping("/admin/items")
 	public ModelAndView itemAdmin() {
 		List<Item> myItemList = itemsDao.findAll();
@@ -57,48 +52,25 @@ public class CoffeeController {
 		return new ModelAndView("item-list","items",myItemList);
 	}
 	
-	/*
-	 * CartItem old = dao.findByItem
-	 * int newQuant= old.getQuant+newCI.getQuant;
-	 * old.setQuantity(newQuant)
-	 * dao.update(old);
-	 * 
-	 * CartItem odl = dao.findByItem
-	 * newCI.setId(old.getId())
-	 * newCI.setQuantity(..
-	 * dao.update(newCI)
-	 */
-	
 	@PostMapping("/item-list")
-	public ModelAndView addToCart(CartItem cartItem, Long item_id) {
-		List<Item> list = cartItemsDao.findAllItems();
-		if(list.contains(cartItem.getItem())) { //need to get list of item ids and compare them to m
-			//update
-			CartItem olditem = cartItemsDao.findByItem(cartItem.getItem());
-			olditem.setQuantity(cartItem.getQuantity()+olditem.getQuantity());
+	public ModelAndView addToCart(Integer quantity, Long item_id) {
+		List<CartItem> list = cartItemsDao.findAll();
+		List<Long> idList = new ArrayList<>();
+		if(list.size()!=0) {
+			for(int i=0;i<list.size();i++) {
+				CartItem temp = list.get(i);
+			idList.add(temp.getItem().getId());
+		}
+		}
+		System.out.println(list);
+		if(idList.contains(item_id)) { 
+			CartItem olditem = cartItemsDao.findByItemID(item_id);
+			olditem.setQuantity(quantity+olditem.getQuantity());
 			cartItemsDao.update(olditem);
+//			TODO: check available quantity and send error message if there aren't enough available
+		}else {
+			cartItemsDao.create(quantity, item_id);
 		}
-//		This didn't work, threw back an error
-//		List<Item> list = cartItemsDao.findAllItems();
-//		List<Long> idList = new ArrayList<>();
-//		if(list.size()!=0) {
-//			for(int i=0;i<list.size();i++) {
-//			idList.add(list.get(i).getId());
-//		
-//		}
-//		}
-//		if(idList.contains(item_id)) { //need to get list of item ids and compare them to the long parameter
-//		
-//			//update
-//			CartItem olditem = cartItemsDao.findByItem(cartItem.getItem());
-//			olditem.setQuantity(cartItem.getQuantity()+olditem.getQuantity());
-//			cartItemsDao.update(olditem);
-//		}
-		
-		else {
-			cartItemsDao.create(cartItem, item_id);
-		}
-		
 		return new ModelAndView("redirect:/item-list");
 	}
 	
@@ -109,12 +81,10 @@ public class CoffeeController {
 		mav.addObject("title", "Edit Items");
 		return mav;
 	}
-	
 	@PostMapping("/item/update")
 	public ModelAndView submitUpdate(Item item) {
 		itemsDao.update(item);
 		return new ModelAndView("redirect:/admin/items");
-		
 	}
 	
 	@RequestMapping("/user-registration")
@@ -135,25 +105,23 @@ public class CoffeeController {
 		ModelAndView mav = new ModelAndView("user-confirmation");
 		mav.addObject("firstname",firstname);
 		return mav;
-		
 	}
+	
 	@RequestMapping("/addItem")
 		public ModelAndView addItem() {
 		return new ModelAndView("item-form","title","Add an Item");
 	}
 	@PostMapping("/addItem")
 	public ModelAndView submitNewItem(Item item) {
-		List list = itemsDao.findNames();
+		List<String> list = itemsDao.findNames();
 				if (!list.contains(item.getName())){
 		itemsDao.create(item);
 		return new ModelAndView("redirect:/admin/items");
-		}
-		else {
+		}else {
 			return new ModelAndView("error-page");
 		}
-		
-		
 	}
+	
 	@RequestMapping("/item/delete/conf")
 	public ModelAndView deleteConfirmation(@RequestParam("id") Long id) {
 		return new ModelAndView("delete-confirmation","id", id);

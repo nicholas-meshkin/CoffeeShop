@@ -32,7 +32,9 @@
 				<td class="itemlist"><fmt:formatNumber type="currency" value = "${curritem.price}" /></td>
 				<td class="itemlist"><img class="img" src="/images/${curritem.itemimg }"></td>
 				<td><form method="post"><input class="quantitybox" 
-				name="quantity" pattern="[0-9]*" /><input name="item_id" type="hidden" value="${curritem.id}" /> <button>Add to Cart</button></form></td>
+					name="quantity" pattern="[0-9]*" /><input name="item_id" type="hidden" 
+					value="${curritem.id}" /><button>Add to Cart</button>
+					</form></td>
 			</tr>
 		</c:forEach>
 		</tbody>
