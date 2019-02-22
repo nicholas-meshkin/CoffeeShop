@@ -29,6 +29,10 @@
 				<td class="itemlist">${currcartitem.quantity}</td>
 				<td class="itemlist" >${currcartitem.item.name}</td>
 				<td class="itemlist"><fmt:formatNumber type="currency" value = "${currcartitem.priceTotal}" /></td>
+				<td>
+						<!-- update this for cart <a href="/item/update?id=${ curritem.id }" class="btn btn-light btn-sm">Edit</a>-->
+						<a href="/cartitem/delete/conf?id=${ currcartitem.id }" class="btn btn-light btn-sm">Delete</a>
+					</td>
 					</tr>
 		</c:forEach>
 		</tbody>

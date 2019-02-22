@@ -48,6 +48,11 @@ public class CartItemsDao {
 		
 	}
 	
+	public void delete(Long id) {
+		CartItem cartItem = em.getReference(CartItem.class, id);
+		em.remove(cartItem);
+	}
+	
 //	public List<Long> findItemIds() {
 //		List<Long> idList = em.createQuery("SELECT DISTINCT tem FROM CartItem", Long.class).getResultList();
 //				return idList;

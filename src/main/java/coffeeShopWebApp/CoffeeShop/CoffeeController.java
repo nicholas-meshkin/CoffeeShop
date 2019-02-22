@@ -65,6 +65,11 @@ public class CoffeeController {
 	
 	@PostMapping("/item-list")
 	public ModelAndView addToCart(Integer quantity, Long item_id) {
+		Item currItem = itemsDao.findById(item_id);
+		if(quantity> currItem.getQuantity()) {
+			return new ModelAndView("overquantity-error-page"); // this checks if quantity added is over stock, but not if combined quantity is over stock
+		}
+		
 		List<CartItem> list = cartItemsDao.findAll();
 		List<Long> idList = new ArrayList<>();
 		if(list.size()!=0) {
@@ -75,10 +80,13 @@ public class CoffeeController {
 		}
 		System.out.println(list);
 		if(idList.contains(item_id)) { 
-			CartItem olditem = cartItemsDao.findByItemID(item_id);
-			olditem.setQuantity(quantity+olditem.getQuantity());
-			cartItemsDao.update(olditem);
-//			TODO: check available quantity and send error message if there aren't enough available
+			CartItem oldcartitem = cartItemsDao.findByItemID(item_id);
+			if(oldcartitem.getQuantity()+quantity<= itemsDao.findById(item_id).getQuantity()) {// this should check available quantity and send error message if there aren't enough available
+				oldcartitem.setQuantity(quantity+oldcartitem.getQuantity());
+				cartItemsDao.update(oldcartitem);
+			}else {
+				return new ModelAndView("overquantity-error-page");
+				}
 		}else {
 			cartItemsDao.create(quantity, item_id);
 		}
@@ -144,6 +152,18 @@ public class CoffeeController {
 	public ModelAndView deleteItem(@RequestParam("id") Long id) {
 		itemsDao.delete(id);
 		return new ModelAndView("redirect:/admin/items");
+	}
+	
+	@RequestMapping("/cartitem/delete/conf")
+	public ModelAndView cartDeleteConfirmation(@RequestParam("id") Long id) {
+		return new ModelAndView("cart-delete-confirmation","id", id);
+	}
+	
+	
+	@RequestMapping("/cartitem/delete")
+	public ModelAndView cartDeleteItem(@RequestParam("id") Long id) {
+		cartItemsDao.delete(id);
+		return new ModelAndView("redirect:/cart");
 	}
 	
 }
