@@ -7,6 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>List of Items</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css" />
 <link rel="stylesheet" href="/style.css" />
 </head>
 <body>

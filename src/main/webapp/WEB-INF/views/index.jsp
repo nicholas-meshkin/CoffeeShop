@@ -6,15 +6,23 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
-<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css" />
+
 </head>
 <body>
-<header><span>
-			Welcome, ${ profile.firstname } ${ profile.lastname }
-		</span></header>
+
+<div class="container">
+<%@include file="partials/loggedin.jsp" %>
 <h1>Welcome to Nick's Coffee Website!</h1>
+<p class="message">${ message }</p>
 <p><a href="/user-registration">User Registration</a></p>
+<p><a href="/login">Sign-in</a></p>
 <p><a href="/item-list">List of Items</a></p>
+<c:choose>
+<c:when test="${ not empty user and user.usertype == 'admin' }">
 <p><a href="/admin">Admin</a></p>
+</c:when>
+</c:choose>
+</div>
 </body>
 </html>

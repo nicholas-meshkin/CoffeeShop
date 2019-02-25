@@ -12,6 +12,8 @@ public class CartItem {
 	Long id;
 	@ManyToOne
 	Item item;
+	@ManyToOne
+	User user;
 	Integer quantity;
 	public Double getPriceTotal() {
 		Double itemTotal = quantity * item.getPrice();
@@ -40,6 +42,19 @@ public class CartItem {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "CartItem [id=" + id + ", item=" + item + ", user=" + user + ", quantity=" + quantity + "]";
 	}
 
 	

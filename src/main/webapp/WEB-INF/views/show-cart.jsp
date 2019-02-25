@@ -5,14 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css" />
 <link rel="stylesheet" href="/style.css" />
 <meta charset="ISO-8859-1">
 <title>Cart</title>
 </head>
 <body>
-<header><span>
-			Welcome, ${ profile.firstname } ${ profile.lastname }
-		</span></header>
+<div class="container">
+		<%@include file="partials/loggedin.jsp" %>
 <h1>Your Cart</h1>
 	<table>
 		<thead>
@@ -39,8 +39,11 @@
 		</tbody>
 	</table>
 	<p>Total: <span><fmt:formatNumber type="currency" value = "${priceTotal }"></fmt:formatNumber></span></p>
+	<footer class="footer">
 <a href="/">Home</a>
 <a href="/item-list">Back to Item List</a>
 <a href="/checkout">Check Out</a>
+</footer>
+</div>
 </body>
 </html>

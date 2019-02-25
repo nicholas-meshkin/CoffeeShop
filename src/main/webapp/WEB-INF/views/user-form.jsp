@@ -5,27 +5,37 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Sign-Up</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css" />
 <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
+<div class="container">
 <h1>Register New User</h1>
+<p class="message">${ message }</p>
 <div class="container">
 	
 
-	<form action="/submit-user-registration">
+	<form action="user-registration" method="post">
+	<input type="hidden" name="usertype" value="reguser" />
 		<p>
 			<label id="fn" for="firstname">First Name:</label> <input class="inputbox" id="firstname" required
-				name="firstname" pattern="[A-Za-z]*" />
+				name="firstname" value="${ param.firstname }"pattern="[A-Za-z]*" />
 		</p>
 		<p>
 			<label for="lastname">Last Name:</label> <input class="inputbox" id="lastname" required
-				name="lastname" pattern="[A-Za-z]*[\s]*[A-Za-z]" />
+				name="lastname" value="${ param.lastname }" pattern="[A-Za-z]*[\s]*[A-Za-z]" />
+		</p>
+		<p>
+			<label for="username">User Name:</label> <input class="inputbox" id="username" required
+				name="username"  value="${ param.username }" pattern="[A-Za-z0-9]*" />
 		</p>
 		<p>
 			<label for="email">Email:</label> <input class="inputbox" type="email" required id="email"
-				name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
+				name="email" value="${ param.email }" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" />
 		</p>
-		<p><label for="phone">Phone number:</label> <input class="inputbox" required id="phone" name="phone" pattern="[0-9]{3}[-][0-9]{3}[-][0-9]{4}" /></p>
+		<p>
+		<label for="phone">Phone number:</label> <input class="inputbox" required id="phone" name="phone" value="${ param.email }" pattern="[0-9]{3}[-][0-9]{3}[-][0-9]{4}" />
+		</p>
 		<p>
 			<label for="password">Password:</label> <input class="inputbox" type="password" required
 				id="password" name="password" />
@@ -61,5 +71,6 @@
 	<p><br></p>
 	<p><br></p>
 	<p id=footer>*optional fields</p>
+	</div>
 </body>
 </html>

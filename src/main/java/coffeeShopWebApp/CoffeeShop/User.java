@@ -12,8 +12,10 @@ public class User {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	private String usertype;
 	private String firstname;
 	private String lastname;
+	private String username;
 	private String phone;
 	private String password;
 	private String email;
@@ -24,11 +26,12 @@ public class User {
 	public User() {}
 
 	
-	public User(Long id, String firstname, String lastname, String phone, String password, String email, String cardtype, String creditcardnumber, String cardexp) {
+	public User(Long id, String firstname, String lastname, String username, String phone, String password, String email, String cardtype, String creditcard, String cardexp) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.username = username;
 		this.phone = phone;
 		this.password = password;
 		this.email = email;
@@ -36,6 +39,26 @@ public class User {
 		this.creditcard = creditcard;
 		this.cardexp=cardexp;
 	}
+	public String getUsername() {
+		return username;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public String getUsertype() {
+		return usertype;
+	}
+
+
+	public void setUsertype(String usertype) {
+		this.usertype = usertype;
+	}
+
+
 	public Long getId() {
 		return id;
 	}

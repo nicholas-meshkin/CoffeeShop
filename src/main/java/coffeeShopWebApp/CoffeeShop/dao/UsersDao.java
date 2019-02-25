@@ -24,5 +24,23 @@ public class UsersDao {
 	public void create(User user) {
 		em.persist(user);
 	}
+	
+	public User findById(Long id) {
+		return em.find(User.class, id);
+	}
+	
+	public User findByUsername(String username) {
+		try {
+			return em.createQuery("FROM User WHERE username = :username", User.class)
+					.setParameter("username", username)
+					.getSingleResult();
+		} catch (NoResultException ex) {
+			return null;
+		}
+	}
+	
+	public void update(User user) {
+		em.merge(user);
+	}
 
 }
